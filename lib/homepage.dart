@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:offline_db/database_manager.dart';
 import 'package:offline_db/new_contact_page.dart';
@@ -17,16 +18,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
 
-  void initState() {
-    super.initState();
-    Provider.of<DatabaseManager>(context).open();
-  }
-
-  @override
-
   Widget build(BuildContext context) {
 
     DatabaseManager primaryDbManager = Provider.of<DatabaseManager>(context);
+    primaryDbManager.open();
     primaryDbManager.allContacts();
 
     return Scaffold(
@@ -39,6 +34,21 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         backgroundColor: Colors.lightBlueAccent,
+        leading: Container(
+          margin: EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            onPressed: () {
+              Provider.of<DatabaseManager>(context, listen: false).close().then((value) => exit(0));
+            },
+            child: Icon(Icons.exit_to_app_rounded),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
+                shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)))
+            )
+          ),
+        ),
+        leadingWidth: 80.0,
         actions: [
           Container(
             margin: EdgeInsets.all(8.0),
