@@ -21,8 +21,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     DatabaseManager primaryDbManager = Provider.of<DatabaseManager>(context);
-    primaryDbManager.open();
-    primaryDbManager.allContacts();
+    primaryDbManager.open().then((value) => primaryDbManager.getAllContacts());
 
     return Scaffold(
       appBar: AppBar(
@@ -74,14 +73,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         margin: EdgeInsets.all(20.0),
         child: Column(
-          children: [
-            Text("hehe",
-              style: TextStyle(
-                  fontSize: 36.0,
-                  color: Colors.deepOrangeAccent
-              ),
-            ),
-          ],
+          children: Provider.of<DatabaseManager>(context).contactWidgetsList,
         ),
       ),
     );

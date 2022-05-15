@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:offline_db/contact_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -35,6 +37,7 @@ class Contact {
 class DatabaseManager {
 
   Database? db;
+  List<Widget> contactWidgetsList = [];
 
   Future open() async {
 
@@ -77,11 +80,22 @@ class DatabaseManager {
       whereArgs: [contactId]);
   }
 
-  Future allContacts() async {
+  Future<void> getAllContacts() async {
+
     List<Map<String, Object?>>? contactsList = await db?.rawQuery("select * from $TableName");
 
-    if (contactsList != null) {
+    contactWidgetsList = [];
 
+    if (contactsList != null) {
+      for (int i = 0; i < contactsList.length; i++) {
+
+        Map currentContact = contactsList[i];
+
+        contactWidgetsList.add(ContactWidget(
+            name: currentContact[ContactName],
+            number: currentContact[ContactNumber],
+            id: currentContact[ContactID]));
+      }
     }
   }
 
