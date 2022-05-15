@@ -79,7 +79,10 @@ class DatabaseManager {
 
   Future allContacts() async {
     List<Map<String, Object?>>? contactsList = await db?.rawQuery("select * from $TableName");
-    print(contactsList);
+
+    if (contactsList != null) {
+
+    }
   }
 
   Future<int?> update(Contact contact) async {
