@@ -52,7 +52,7 @@ class DatabaseManager {
               '''create table $TableName (
               $ContactID integer primary key autoincrement,
               $ContactName text not null,
-              $ContactNumber integer)'''
+              $ContactNumber integer not null)'''
           );
         }
     );
