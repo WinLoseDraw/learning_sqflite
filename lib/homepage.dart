@@ -73,7 +73,9 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         margin: EdgeInsets.all(20.0),
         child: Column(
-          children: Provider.of<DatabaseManager>(context).contactWidgetsList,
+          children: Provider.of<DatabaseManager>(context).contactWidgetsList.isNotEmpty ?
+          Provider.of<DatabaseManager>(context).contactWidgetsList :
+          [Text("No contacts yet, add a contact to get started!", style: TextStyle(fontSize: 20.0))],
         ),
       ),
     );
