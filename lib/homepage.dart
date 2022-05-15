@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:offline_db/database_manager.dart';
 import 'package:offline_db/new_contact_page.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -11,8 +14,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
+
+  void initState() {
+    super.initState();
+    Provider.of<DatabaseManager>(context).open();
+  }
+
+  @override
+
   Widget build(BuildContext context) {
+
+    DatabaseManager primaryDbManager = Provider.of<DatabaseManager>(context);
+    primaryDbManager.allContacts();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Contacts",

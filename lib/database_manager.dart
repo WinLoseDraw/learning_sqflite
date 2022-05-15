@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 const String TableName = "Contacts";
@@ -33,7 +36,11 @@ class DatabaseManager {
 
   Database? db;
 
-  Future open(String path) async {
+  Future open() async {
+
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, "ContactsDatabase.db");
+
     db = await openDatabase(
         path,
         version: 1,
@@ -68,6 +75,11 @@ class DatabaseManager {
     return await db?.delete(TableName,
       where: '$ContactID = ?',
       whereArgs: [contactId]);
+  }
+
+  Future allContacts() async {
+    List<Map<String, Object?>>? contactsList = await db?.rawQuery("select * from $TableName");
+    print(contactsList);
   }
 
   Future<int?> update(Contact contact) async {
