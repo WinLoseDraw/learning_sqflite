@@ -15,36 +15,59 @@ class ContactWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.black, width: 1.0),
           borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 2.0, spreadRadius: 3.0)],
         ),
         child: Row(
           children: [
-            Column(
-              children: [
-                Text(name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
+            Expanded(
+              child: Column(
+                children: [
+                  Text(name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  Text(number.toString(),
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "EditContact");
+                  },
+                  child: Icon(Icons.edit),
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(EdgeInsets.all(0.0)),
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
                   ),
                 ),
-                Text(number.toString(),
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
+              ),
+            ),
+            SizedBox(
+              width: 50.0,
+              height: 50.0,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Icon(Icons.delete),
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(EdgeInsets.all(0.0)),
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
                 ),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, "EditContactPage");
-              },
-              child: Icon(Icons.edit),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Icon(Icons.delete),
+              ),
             ),
           ],
         )
