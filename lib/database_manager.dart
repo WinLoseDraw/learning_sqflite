@@ -12,6 +12,7 @@ const String ContactName = "ContactName";
 const String ContactNumber = "ContactNumber";
 
 class Contact {
+  Contact({required this.contactName, required this.contactNumber, contactId});
 
   int? contactId;
   String contactName;
