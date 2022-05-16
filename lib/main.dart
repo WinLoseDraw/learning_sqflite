@@ -14,6 +14,9 @@ void main() {
         Provider(
             create: (context) => DatabaseManager(),
         ),
+        ChangeNotifierProvider(
+            create: (context) => ContactIDProvider(),
+        ),
       ],
         child: MyApp()),
     );

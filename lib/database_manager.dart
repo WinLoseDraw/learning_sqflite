@@ -12,7 +12,7 @@ const String ContactName = "ContactName";
 const String ContactNumber = "ContactNumber";
 
 class Contact {
-  Contact({required this.contactName, required this.contactNumber, contactId});
+  Contact({required this.contactName, required this.contactNumber, this.contactId});
 
   int? contactId;
   String contactName;
@@ -33,6 +33,13 @@ class Contact {
     contactId = map[ContactID],
     contactName = map[ContactName],
     contactNumber = map[ContactNumber];
+}
+
+class ContactIDProvider extends ChangeNotifier {
+
+  int contactId = 0;
+  String contactName = "";
+  int contactNumber = 0;
 }
 
 class DatabaseManager {
