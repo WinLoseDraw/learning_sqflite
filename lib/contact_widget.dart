@@ -47,6 +47,9 @@ class ContactWidget extends StatelessWidget {
                 height: 50.0,
                 child: ElevatedButton(
                   onPressed: () {
+                    Provider.of<ContactIDProvider>(context, listen: false).contactId = id;
+                    Provider.of<ContactIDProvider>(context, listen: false).contactName = name;
+                    Provider.of<ContactIDProvider>(context, listen: false).contactNumber = number;
                     Navigator.pushReplacementNamed(context, "EditContact");
                   },
                   child: Icon(Icons.edit),
@@ -61,7 +64,10 @@ class ContactWidget extends StatelessWidget {
               width: 50.0,
               height: 50.0,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<DatabaseManager>(context, listen: false).delete(id).then(
+                          (value) => Provider.of<DatabaseManager>(context, listen: false).getAllContacts());
+                },
                 child: Icon(Icons.delete),
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(EdgeInsets.all(0.0)),
