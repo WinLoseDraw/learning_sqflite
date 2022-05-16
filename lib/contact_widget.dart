@@ -65,8 +65,40 @@ class ContactWidget extends StatelessWidget {
               height: 50.0,
               child: ElevatedButton(
                 onPressed: () {
-                  Provider.of<DatabaseManager>(context, listen: false).delete(id).then(
-                          (value) => Provider.of<DatabaseManager>(context, listen: false).getAllContacts());
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        actionsAlignment: MainAxisAlignment.spaceAround,
+                        content: Text("Are you sure you want to delete this contact?", style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Cancel",
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Provider.of<DatabaseManager>(context, listen: false).delete(id).then(
+                                      (value) => Provider.of<DatabaseManager>(context, listen: false).getAllContacts().then(
+                                              (value) => Navigator.pushReplacementNamed(context, "/")));
+                            },
+                            child: Text("Confirm",
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                  );
                 },
                 child: Icon(Icons.delete),
                 style: ButtonStyle(
